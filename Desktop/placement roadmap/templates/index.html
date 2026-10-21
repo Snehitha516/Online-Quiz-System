@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Placement Preparation Roadmap Generator - Elevate your campus placement prep with customized learning roadmaps, AI mock interviews, resume analysis, coding practice, and streak tracking.">
+    <title>AI Placement Preparation Roadmap Generator</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Theme CSS Styling -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <!-- Main Application Wrapper -->
+    <div id="app-container" class="app-unauthenticated">
+        
+        <!-- Sidebar Navigation (Active only when authenticated) -->
+        <aside id="app-sidebar" class="sidebar">
+            <div class="sidebar-brand">
+                <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                <span class="brand-text">PathPrep <span class="accent-dot">AI</span></span>
+            </div>
+            
+            <div class="user-quick-profile">
+                <div class="avatar-ring">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="user-details">
+                    <h4 id="user-display-name">Loading...</h4>
+                    <span id="user-display-email">student@college.edu</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active" data-view="dashboard"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+                <a href="#" class="nav-link" data-view="profile"><i class="fa-solid fa-user-gear"></i> Profile Setup</a>
+                <a href="#" class="nav-link" data-view="assessment"><i class="fa-solid fa-clipboard-question"></i> Skill Assessment</a>
+                <a href="#" class="nav-link" data-view="readiness"><i class="fa-solid fa-chart-line"></i> Readiness Score</a>
+                <a href="#" class="nav-link" data-view="roadmap"><i class="fa-solid fa-map-location-dot"></i> Prep Roadmap</a>
+                <a href="#" class="nav-link" data-view="tasks"><i class="fa-solid fa-list-check"></i> Daily Tasks</a>
+                <a href="#" class="nav-link" data-view="coding"><i class="fa-solid fa-code"></i> Coding Practice</a>
+                <a href="#" class="nav-link" data-view="company"><i class="fa-solid fa-building-user"></i> Company Prep</a>
+                <a href="#" class="nav-link" data-view="interview"><i class="fa-solid fa-headset"></i> Mock Interview</a>
+                <a href="#" class="nav-link" data-view="resources"><i class="fa-solid fa-book-bookmark"></i> Study Resources</a>
+                <a href="#" class="nav-link" data-view="chat"><i class="fa-solid fa-comments"></i> AI Chat Assistant</a>
+                <a href="#" class="nav-link" data-view="resume"><i class="fa-solid fa-file-invoice"></i> Resume Analyzer</a>
+                <a href="#" class="nav-link" data-view="eligibility"><i class="fa-solid fa-building-circle-check"></i> Eligibility Checker</a>
+                <a href="#" class="nav-link" data-view="notes"><i class="fa-solid fa-note-sticky"></i> Notes & Planner</a>
+                <a href="#" class="nav-link" data-view="progress"><i class="fa-solid fa-trophy"></i> Achievements</a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="btn-logout" class="btn-sidebar-logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Body Workspace -->
+        <main id="app-main-content" class="main-content">
+            
+            <!-- Global Header -->
+            <header class="app-header">
+                <div class="header-left">
+                    <!-- Hamburger button for mobile responsive view toggles -->
+                    <button id="sidebar-toggle" class="btn-icon"><i class="fa-solid fa-bars"></i></button>
+                    <h2 id="view-title">Home Page</h2>
+                </div>
+                <div class="header-right">
+                    <!-- Streak Count Display -->
+                    <div class="header-streak-badge" id="streak-header-badge" style="display: none;">
+                        <i class="fa-solid fa-fire fire-icon animate-pulse"></i>
+                        <span id="streak-count-val">0</span> Day Streak
+                    </div>
+                    <!-- Go to Dashboard quick link when logged in, or Auth when not -->
+                    <div id="header-auth-buttons">
+                        <button id="btn-header-login" class="btn btn-secondary">Login</button>
+                        <button id="btn-header-register" class="btn btn-primary">Get Started</button>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- VIEW PORTS CONTAINER (Only one active at a time) -->
+            <div id="view-viewport" class="viewport">
+                
+                <!-- 1. HOME / LANDING VIEW -->
+                <section id="view-home" class="view-panel active">
+                    <div class="hero-section text-center">
+                        <span class="hero-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> AI-Powered Placement Preparation</span>
+                        <h1 class="hero-title">Unlock Your Career: Get Your Personalized Placement Roadmap</h1>
+                        <p class="hero-subtitle">Assess your skills, get AI-powered roadmap suggestions, practice live coding, test interviews, and boost your placement readiness score in one single dashboard.</p>
+                        <div class="hero-ctas">
+                            <button class="btn btn-lg btn-primary btn-cta-start">Get Started Free <i class="fa-solid fa-arrow-right"></i></button>
+                            <a href="#how-it-works" class="btn btn-lg btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature Grid Overview -->
+                    <div class="section-container">
+                        <h2 class="section-title text-center">Comprehensive Prep Features</h2>
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <div class="feature-icon-wrapper"><i class="fa-solid fa-map-location-dot"></i></div>
+                                <h3>Smart Roadmaps</h3>
+                                <p>Customized 30, 60, or 90-day prep roadmaps built around your major strengths and weaknesses.</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon-wrapper"><i class="fa-solid fa-headset"></i></div>
+                                <h3>AI Mock Interviews</h3>
+                                <p>Interactive mock interview rounds covering technical subjects (OOPS, DBMS, DSA) and HR questions with scores.</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon-wrapper"><i class="fa-solid fa-file-invoice"></i></div>
+                                <h3>Resume ATS Scanner</h3>
+                                <p>Paste resume contents to evaluate ATS compatibility, spot missing skills, and read grammar adjustments.</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon-wrapper"><i class="fa-solid fa-code"></i></div>
+                                <h3>Live Coding Practice</h3>
+                                <p>Code directly inside a web compiler workspace. Solve questions targeted to your company of choice.</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon-wrapper"><i class="fa-solid fa-building-circle-check"></i></div>
+                                <h3>Eligibility Checker</h3>
+                                <p>Check matching cut-offs instantly for companies like Google, TCS, Wipro, and Amazon against your CGPA.</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon-wrapper"><i class="fa-solid fa-comments"></i></div>
+                                <h3>AI Doubt Solver</h3>
+                                <p>Instantly resolve coding queries, SQL syntax issues, or explanations of Stack architectures in chat.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- How It Works Section -->
+                    <div id="how-it-works" class="section-container bg-offset">
+                        <h2 class="section-title text-center">How It Works</h2>
+                        <div class="timeline">
+                            <div class="timeline-step">
+                                <div class="step-number">1</div>
+                                <h3>Complete Profile & Diagnostic Quiz</h3>
+                                <p>Fill in academic parameters and take a quick aptitude and coding diagnostic test.</p>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="step-number">2</div>
+                                <h3>AI Roadmap Generation</h3>
+                                <p>Get a detailed day-by-day plan of activities customized to your timeline and targets.</p>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="step-number">3</div>
+                                <h3>Solve Tasks & Track Progress</h3>
+                                <p>Check off daily recommended milestones, update your placement score, and earn badges.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonials -->
+                    <div class="section-container">
+                        <h2 class="section-title text-center">Student Testimonials</h2>
+                        <div class="testimonials-slider">
+                            <div class="testimonial-card">
+                                <p>"The 30-day roadmap was EXACTLY what I needed to structure my TCS preparation. The mock interview gave me the confidence to face the real rounds!"</p>
+                                <div class="student-info">
+                                    <strong>Rohan Sharma</strong>
+                                    <span>Placed at TCS Digital</span>
+                                </div>
+                            </div>
+                            <div class="testimonial-card">
+                                <p>"The resume analyzer highlighted exactly what keywords were missing. Fixed them, scored an interview at Amazon, and got the offer!"</p>
+                                <div class="student-info">
+                                    <strong>Priyanka Rao</strong>
+                                    <span>Placed at Amazon</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ -->
+                    <div class="section-container bg-offset">
+                        <h2 class="section-title text-center">Frequently Asked Questions</h2>
+                        <div class="faq-accordion">
+                            <details class="faq-item">
+                                <summary>How is the placement readiness score calculated?</summary>
+                                <p>We evaluate your scores from coding mock tests, logical aptitude quizzes, SQL queries performance, resume ATS match rate, and communication during mock interviews to yield a unified index.</p>
+                            </details>
+                            <details class="faq-item">
+                                <summary>Can I export my preparation roadmap?</summary>
+                                <p>Yes, once your customized roadmap (30/60/90 days) is generated, you can download a full detailed PDF layout to study offline.</p>
+                            </details>
+                            <details class="faq-item">
+                                <summary>Are the mock interviews live or text-based?</summary>
+                                <p>The mock interviews are structured as interactive text exchanges. The AI evaluator scans your responses for key keywords and outputs grades and improvement ideas.</p>
+                            </details>
+                        </div>
+                    </div>
+                    
+                    <footer class="landing-footer">
+                        <p>© 2026 PathPrep AI. All rights reserved. Your partner in campus placement prep.</p>
+                    </footer>
+                </section>
+                
+                <!-- 2. LOGIN / SIGN UP VIEW -->
+                <section id="view-auth" class="view-panel">
+                    <div class="auth-container">
+                        <div class="auth-card">
+                            <div class="auth-toggle">
+                                <button id="btn-toggle-login" class="auth-toggle-btn active">Login</button>
+                                <button id="btn-toggle-signup" class="auth-toggle-btn">Sign Up</button>
+                            </div>
+                            
+                            <!-- Login Form -->
+                            <form id="form-login" class="auth-form active">
+                                <h3>Welcome Back</h3>
+                                <p>Login to resume your personalized placement roadmap.</p>
+                                <div class="form-group">
+                                    <label for="login-email">Email Address</label>
+                                    <input type="email" id="login-email" required placeholder="name@college.edu">
+                                </div>
+                                <div class="form-group">
+                                    <label for="login-password">Password</label>
+                                    <input type="password" id="login-password" required placeholder="••••••••">
+                                </div>
+                                <button type="submit" class="btn btn-primary w-full">Sign In <i class="fa-solid fa-right-to-bracket"></i></button>
+                                <div class="auth-footer text-center">
+                                    <a href="#" class="forgot-password-link">Forgot Password?</a>
+                                </div>
+                            </form>
+                            
+                            <!-- Signup Form -->
+                            <form id="form-signup" class="auth-form">
+                                <h3>Create Account</h3>
+                                <p>Begin your AI-guided career readiness mapping.</p>
+                                <div class="form-group">
+                                    <label for="signup-name">Full Name</label>
+                                    <input type="text" id="signup-name" required placeholder="John Doe">
+                                </div>
+                                <div class="form-group">
+                                    <label for="signup-email">Email Address</label>
+                                    <input type="email" id="signup-email" required placeholder="name@college.edu">
+                                </div>
+                                <div class="form-group">
+                                    <label for="signup-password">Password</label>
+                                    <input type="password" id="signup-password" required minlength="6" placeholder="At least 6 characters">
+                                </div>
+                                <button type="submit" class="btn btn-primary w-full">Create Account <i class="fa-solid fa-user-plus"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 3. CANDIDATE PROFILE SETUP VIEW -->
+                <section id="view-profile" class="view-panel">
+                    <div class="card-container">
+                        <h2>Candidate Profile Setup</h2>
+                        <p class="subtitle">Collect academic background parameters to feed the AI generator model.</p>
+                        <form id="form-profile">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="prof-college">College / University Name</label>
+                                    <input type="text" id="prof-college" required placeholder="e.g. Stanford University">
+                                </div>
+                                <div class="form-group">
+                                    <label for="prof-dept">Department / Specialization</label>
+                                    <input type="text" id="prof-dept" required placeholder="e.g. Computer Science">
+                                </div>
+                                <div class="form-group">
+                                    <label for="prof-year">Academic Year</label>
+                                    <select id="prof-year" required>
+                                        <option value="1st Year">1st Year</option>
+                                        <option value="2nd Year">2nd Year</option>
+                                        <option value="3rd Year">3rd Year</option>
+                                        <option value="4th Year" selected>4th Year</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="prof-cgpa">Current CGPA</label>
+                                    <input type="number" id="prof-cgpa" required min="1.0" max="10.0" step="0.01" placeholder="e.g. 8.5">
+                                </div>
+                                <div class="form-group">
+                                    <label for="prof-backlogs">Active Backlogs</label>
+                                    <input type="number" id="prof-backlogs" required min="0" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="prof-lang">Preferred Programming Language</label>
+                                    <select id="prof-lang" required>
+                                        <option value="C">C</option>
+                                        <option value="C++">C++</option>
+                                        <option value="Java">Java</option>
+                                        <option value="Python" selected>Python</option>
+                                        <option value="JavaScript">JavaScript</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="prof-company">Target Company</label>
+                                    <select id="prof-company" required>
+                                        <option value="TCS">TCS</option>
+                                        <option value="Infosys">Infosys</option>
+                                        <option value="Wipro">Wipro</option>
+                                        <option value="Accenture">Accenture</option>
+                                        <option value="Zoho">Zoho</option>
+                                        <option value="Amazon">Amazon</option>
+                                        <option value="Google">Google</option>
+                                        <option value="Microsoft">Microsoft</option>
+                                        <option value="Meta">Meta</option>
+                                        <option value="Apple">Apple</option>
+                                        <option value="Netflix">Netflix</option>
+                                        <option value="Oracle">Oracle</option>
+                                        <option value="Cisco">Cisco</option>
+                                        <option value="Adobe">Adobe</option>
+                                        <option value="Salesforce">Salesforce</option>
+                                        <option value="Uber">Uber</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="prof-time">Daily Study Time Commitment</label>
+                                    <select id="prof-time" required>
+                                        <option value="1-2 Hours">1-2 Hours</option>
+                                        <option value="3-4 Hours" selected>3-4 Hours</option>
+                                        <option value="5+ Hours">5+ Hours</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="prof-skills">Technical Skills (Comma-separated)</label>
+                                <input type="text" id="prof-skills" required placeholder="e.g. Python, SQL, HTML, CSS, DBMS">
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Save and Continue <i class="fa-solid fa-arrow-right"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+                
+                <!-- 4. SKILL ASSESSMENT TEST VIEW -->
+                <section id="view-assessment" class="view-panel">
+                    <div class="card-container" id="assessment-intro-panel">
+                        <h2>Diagnostic Skill Assessment Test</h2>
+                        <p>This diagnostic test contains **10 MCQs** spanning Aptitude, Programming Languages, DBMS, OS, Networking, and OOPS, followed by **1 coding problem**. The results evaluate your Placement Readiness Score.</p>
+                        
+                        <div class="alert alert-warning">
+                            <i class="fa-solid fa-triangle-exclamation"></i> <strong>Important:</strong> Do not refresh or leave the page once the assessment starts. It includes a 15-minute runtime countdown.
+                        </div>
+                        
+                        <button id="btn-start-quiz" class="btn btn-primary btn-lg">Start Assessment Now <i class="fa-solid fa-play"></i></button>
+                    </div>
+                    
+                    <!-- MCQ & Coding Interface (Hidden initially) -->
+                    <div class="card-container" id="assessment-quiz-panel" style="display: none;">
+                        <div class="quiz-header">
+                            <span class="badge" id="quiz-question-counter">Question 1 of 10</span>
+                            <div class="quiz-timer"><i class="fa-regular fa-clock"></i> Time Left: <span id="quiz-time-val">15:00</span></div>
+                        </div>
+                        
+                        <!-- MCQ Container -->
+                        <div id="quiz-mcq-container">
+                            <h3 id="quiz-question-text" class="question-text">Question loading...</h3>
+                            <div class="options-grid" id="quiz-options-container">
+                                <!-- Generated Dynamically -->
+                            </div>
+                        </div>
+                        
+                        <!-- Coding Question Container (Shown on Question 11) -->
+                        <div id="quiz-coding-container" style="display: none;">
+                            <h3 class="question-text">Coding Question: Reverse a String</h3>
+                            <p class="coding-desc">Write a function that reverses a given string character-by-character. Run sample test cases below.</p>
+                            <div class="editor-layout">
+                                <div class="editor-header">
+                                    <span>Language: <strong id="editor-lang-display">Python</strong></span>
+                                </div>
+                                <textarea id="coding-editor-textarea" rows="10" placeholder="def reverse_string(s):&#10;    # Write your code here&#10;    pass"></textarea>
+                            </div>
+                            <div class="editor-actions">
+                                <button id="btn-run-code" class="btn btn-secondary"><i class="fa-solid fa-play"></i> Run Tests</button>
+                                <div id="code-test-result" class="test-result-indicator">Ready</div>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-footer">
+                            <button id="btn-quiz-prev" class="btn btn-secondary" disabled>Previous</button>
+                            <button id="btn-quiz-next" class="btn btn-primary">Next <i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 5. PLACEMENT READINESS SCORE VIEW -->
+                <section id="view-readiness" class="view-panel">
+                    <div class="readiness-layout">
+                        <!-- Left Panel: Large Score Gauge -->
+                        <div class="card-container flex-col-center text-center">
+                            <h3>Overall Placement Readiness</h3>
+                            <div class="gauge-outer">
+                                <svg class="progress-ring-svg" width="200" height="200">
+                                    <circle class="progress-ring-bg" cx="100" cy="100" r="80" stroke-width="12"></circle>
+                                    <circle id="readiness-ring" class="progress-ring-fill" cx="100" cy="100" r="80" stroke-width="12" stroke-dasharray="502.65" stroke-dashoffset="502.65"></circle>
+                                </svg>
+                                <div class="gauge-value"><span id="overall-score-val">0</span>%</div>
+                            </div>
+                            <p class="score-status" id="overall-score-status">Evaluation Pending</p>
+                            <button id="btn-trigger-roadmap" class="btn btn-primary w-full"><i class="fa-solid fa-wand-magic-sparkles"></i> Generate Personalized Roadmap</button>
+                        </div>
+                        
+                        <!-- Right Panel: Breakdown Charts -->
+                        <div class="card-container">
+                            <h3>Skill Breakdown</h3>
+                            <div class="score-breakdown-list">
+                                <div class="breakdown-item">
+                                    <span class="label">Coding Score</span>
+                                    <div class="progress-bar-track">
+                                        <div id="bar-coding" class="progress-bar-fill" style="width: 0%;"></div>
+                                    </div>
+                                    <span class="score-percentage" id="val-coding">0%</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span class="label">Aptitude Score</span>
+                                    <div class="progress-bar-track">
+                                        <div id="bar-aptitude" class="progress-bar-fill" style="width: 0%;"></div>
+                                    </div>
+                                    <span class="score-percentage" id="val-aptitude">0%</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span class="label">SQL & DBMS Score</span>
+                                    <div class="progress-bar-track">
+                                        <div id="bar-sql" class="progress-bar-fill" style="width: 0%;"></div>
+                                    </div>
+                                    <span class="score-percentage" id="val-sql">0%</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span class="label">Resume Score</span>
+                                    <div class="progress-bar-track">
+                                        <div id="bar-resume" class="progress-bar-fill" style="width: 0%;"></div>
+                                    </div>
+                                    <span class="score-percentage" id="val-resume">0%</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span class="label">Communication Score</span>
+                                    <div class="progress-bar-track">
+                                        <div id="bar-comm" class="progress-bar-fill" style="width: 0%;"></div>
+                                    </div>
+                                    <span class="score-percentage" id="val-comm">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- SWOT Analysis Cards -->
+                    <div class="readiness-swot-grid">
+                        <div class="card-container border-success">
+                            <h4 class="text-success"><i class="fa-solid fa-circle-check"></i> Strong Areas</h4>
+                            <ul id="strong-areas-list" class="swot-list">
+                                <li>Loading...</li>
+                            </ul>
+                        </div>
+                        <div class="card-container border-danger">
+                            <h4 class="text-danger"><i class="fa-solid fa-triangle-exclamation"></i> Weak Areas</h4>
+                            <ul id="weak-areas-list" class="swot-list">
+                                <li>Loading...</li>
+                            </ul>
+                        </div>
+                        <div class="card-container col-span-2 border-info">
+                            <h4 class="text-info"><i class="fa-solid fa-lightbulb"></i> AI Recommendations</h4>
+                            <p id="ai-suggestions-paragraph" class="suggestions-text">Please complete the profile and diagnostic assessment quiz to generate targeted study tips.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 6. AI PERSONALIZED ROADMAP VIEW -->
+                <section id="view-roadmap" class="view-panel">
+                    <div class="card-container">
+                        <div class="roadmap-top-bar">
+                            <div>
+                                <h2>Your AI Personalized Roadmap</h2>
+                                <p>Select your desired duration structure. We've customized milestones for your weaknesses.</p>
+                            </div>
+                            <!-- Export Button -->
+                            <button id="btn-download-roadmap-pdf" class="btn btn-secondary"><i class="fa-solid fa-file-pdf"></i> Download PDF Roadmap</button>
+                        </div>
+                        
+                        <!-- Plan Selector tabs -->
+                        <div class="roadmap-tabs">
+                            <button class="roadmap-tab-btn active" data-duration="30">30-Day Plan</button>
+                            <button class="roadmap-tab-btn" data-duration="60">60-Day Plan</button>
+                            <button class="roadmap-tab-btn" data-duration="90">90-Day Plan</button>
+                        </div>
+                        
+                        <!-- Timeline Container -->
+                        <div class="roadmap-timeline" id="roadmap-timeline-container">
+                            <!-- Generated Dynamically -->
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 7. STUDENT DASHBOARD VIEW -->
+                <section id="view-dashboard" class="view-panel">
+                    <!-- Dashboard Statistics Grid -->
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-indigo"><i class="fa-solid fa-chart-pie"></i></div>
+                            <div class="stat-info">
+                                <h3>Readiness Score</h3>
+                                <p class="stat-val" id="dash-readiness-val">0%</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon bg-orange"><i class="fa-solid fa-fire"></i></div>
+                            <div class="stat-info">
+                                <h3>Streak Count</h3>
+                                <p class="stat-val" id="dash-streak-val">0 Days</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon bg-emerald"><i class="fa-solid fa-percent"></i></div>
+                            <div class="stat-info">
+                                <h3>Tasks Completed</h3>
+                                <p class="stat-val" id="dash-completion-val">0%</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon bg-cyan"><i class="fa-solid fa-trophy"></i></div>
+                            <div class="stat-info">
+                                <h3>Badges Earned</h3>
+                                <p class="stat-val" id="dash-badges-val">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-split">
+                        <!-- Left Panel: Today's tasks -->
+                        <div class="card-container">
+                            <div class="card-header">
+                                <h3>Today's Task List</h3>
+                                <button id="btn-dash-go-tasks" class="btn btn-sm btn-secondary">Manage Tasks <i class="fa-solid fa-arrow-right"></i></button>
+                            </div>
+                            <div class="today-tasks-checklist" id="dash-tasks-container">
+                                <!-- Loaded dynamically -->
+                            </div>
+                        </div>
+                        
+                        <!-- Right Panel: Quick access grid -->
+                        <div class="card-container">
+                            <h3>Quick Actions</h3>
+                            <div class="quick-access-grid">
+                                <a href="#" class="quick-card" data-view="tasks">
+                                    <i class="fa-solid fa-list-check font-orange"></i>
+                                    <span>Daily Tasks</span>
+                                </a>
+                                <a href="#" class="quick-card" data-view="coding">
+                                    <i class="fa-solid fa-code font-cyan"></i>
+                                    <span>Coding Practice</span>
+                                </a>
+                                <a href="#" class="quick-card" data-view="interview">
+                                    <i class="fa-solid fa-headset font-purple"></i>
+                                    <span>Mock Interview</span>
+                                </a>
+                                <a href="#" class="quick-card" data-view="chat">
+                                    <i class="fa-solid fa-comments font-indigo"></i>
+                                    <span>AI Doubt Solver</span>
+                                </a>
+                                <a href="#" class="quick-card" data-view="resources">
+                                    <i class="fa-solid fa-book-bookmark font-emerald"></i>
+                                    <span>Resources</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 8. DAILY TASK GENERATOR VIEW -->
+                <section id="view-tasks" class="view-panel">
+                    <div class="card-container max-w-xl mx-auto">
+                        <div class="task-generator-header">
+                            <h2 id="task-day-title">Day 1 Activities</h2>
+                            <p>Check off tasks as you complete them. Completing the full list increments your daily streak!</p>
+                        </div>
+                        
+                        <div class="task-checklist-body" id="tasks-list-container">
+                            <!-- Checked Dynamically -->
+                        </div>
+                        
+                        <div class="task-progress-box">
+                            <div class="progress-info">
+                                <span>Day Progress</span>
+                                <span id="tasks-progress-percentage">0%</span>
+                            </div>
+                            <div class="progress-bar-track">
+                                <div id="tasks-progress-bar" class="progress-bar-fill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 9. CODING PROBLEM RECOMMENDATION VIEW -->
+                <section id="view-coding" class="view-panel">
+                    <div class="card-container">
+                        <h2>Recommended Coding Problems</h2>
+                        <p>Based on your weak topics from the assessment, we suggest practicing the following algorithms.</p>
+                        
+                        <div class="coding-recommend-table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Problem Name</th>
+                                        <th>Difficulty</th>
+                                        <th>Category</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="coding-recommendations-body">
+                                    <!-- Populated dynamically based on assessment scores -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Integrated coding practice modal/editor -->
+                    <div class="card-container" id="coding-practice-workspace" style="display: none; margin-top: 20px;">
+                        <h3 id="workspace-problem-title">Problem Practice Workspace</h3>
+                        <p id="workspace-problem-desc" class="coding-desc">Problem details...</p>
+                        <div class="editor-layout">
+                            <textarea id="workspace-textarea" rows="12" class="code-editor" placeholder="# Write code here..."></textarea>
+                        </div>
+                        <div class="workspace-actions">
+                            <button id="btn-workspace-submit" class="btn btn-primary"><i class="fa-solid fa-circle-check"></i> Submit Solution</button>
+                            <button id="btn-workspace-close" class="btn btn-secondary">Close Workspace</button>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 10. COMPANY-WISE PREPARATION VIEW -->
+                <section id="view-company" class="view-panel">
+                    <div class="card-container">
+                        <h2>Company-Wise Preparation Dashboard</h2>
+                        <p>Explore interview structures, patterns, past coding questions, and experiences from successful students.</p>
+                        
+                        <!-- Grid list of companies -->
+                        <div class="company-grid">
+                            <button class="company-btn" data-company="TCS"><i class="fa-solid fa-laptop-code font-cyan"></i> TCS</button>
+                            <button class="company-btn" data-company="Infosys"><i class="fa-solid fa-code-branch font-indigo"></i> Infosys</button>
+                            <button class="company-btn" data-company="Wipro"><i class="fa-solid fa-server font-orange"></i> Wipro</button>
+                            <button class="company-btn" data-company="Accenture"><i class="fa-solid fa-cubes font-purple"></i> Accenture</button>
+                            <button class="company-btn" data-company="Zoho"><i class="fa-solid fa-network-wired font-emerald"></i> Zoho</button>
+                            <button class="company-btn" data-company="Amazon"><i class="fa-solid fa-brands fa-amazon font-orange"></i> Amazon</button>
+                            <button class="company-btn" data-company="Google"><i class="fa-solid fa-brands fa-google font-cyan"></i> Google</button>
+                            <button class="company-btn" data-company="Microsoft"><i class="fa-solid fa-brands fa-microsoft font-indigo"></i> Microsoft</button>
+                            <button class="company-btn" data-company="Meta"><i class="fa-solid fa-brands fa-meta font-indigo"></i> Meta</button>
+                            <button class="company-btn" data-company="Apple"><i class="fa-solid fa-brands fa-apple font-primary"></i> Apple</button>
+                            <button class="company-btn" data-company="Netflix"><i class="fa-solid fa-film font-danger"></i> Netflix</button>
+                            <button class="company-btn" data-company="Oracle"><i class="fa-solid fa-database font-danger"></i> Oracle</button>
+                            <button class="company-btn" data-company="Cisco"><i class="fa-solid fa-network-wired font-cyan"></i> Cisco</button>
+                            <button class="company-btn" data-company="Adobe"><i class="fa-solid fa-pen-nib font-orange"></i> Adobe</button>
+                            <button class="company-btn" data-company="Salesforce"><i class="fa-solid fa-cloud font-cyan"></i> Salesforce</button>
+                            <button class="company-btn" data-company="Uber"><i class="fa-solid fa-car font-primary"></i> Uber</button>
+                        </div>
+                        
+                        <!-- Company Details Render Box -->
+                        <div class="company-details-box" id="company-details-panel" style="display: none; margin-top: 25px;">
+                            <h3 id="comp-title">Company Name</h3>
+                            <div class="details-split">
+                                <div class="details-left">
+                                    <div class="meta-section">
+                                        <h4><i class="fa-solid fa-circle-info"></i> Interview Pattern</h4>
+                                        <p id="comp-pattern">Pattern details...</p>
+                                    </div>
+                                    <div class="meta-section">
+                                        <h4><i class="fa-solid fa-brain"></i> Aptitude Topics</h4>
+                                        <p id="comp-aptitude">Aptitude info...</p>
+                                    </div>
+                                    <div class="meta-section">
+                                        <h4><i class="fa-solid fa-clipboard-list"></i> HR & Leadership Questions</h4>
+                                        <p id="comp-hr">HR Questions...</p>
+                                    </div>
+                                </div>
+                                <div class="details-right">
+                                    <div class="meta-section">
+                                        <h4><i class="fa-solid fa-code"></i> Frequently Asked Coding Questions</h4>
+                                        <ul id="comp-coding-list" class="styled-list">
+                                            <li>Question 1</li>
+                                        </ul>
+                                    </div>
+                                    <div class="meta-section">
+                                        <h4><i class="fa-solid fa-star"></i> Student Experience</h4>
+                                        <blockquote id="comp-experience">Experience...</blockquote>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 11. AI MOCK INTERVIEW VIEW -->
+                <section id="view-interview" class="view-panel">
+                    <div class="interview-layout">
+                        <!-- Setup panel -->
+                        <div class="card-container" id="interview-setup-panel">
+                            <h2>AI Mock Interview Session</h2>
+                            <p>Simulate an interactive technical/HR interview. The AI evaluator will score your statements in real time.</p>
+                            <div class="form-group">
+                                <label for="interview-topic">Select Interview Focus Subject</label>
+                                <select id="interview-topic" class="form-control">
+                                    <option value="OOPS">Object-Oriented Programming (OOPS)</option>
+                                    <option value="DBMS">Database Management (DBMS)</option>
+                                    <option value="SQL">SQL Queries & Transactions</option>
+                                    <option value="OS">Operating Systems</option>
+                                    <option value="CN">Computer Networks</option>
+                                    <option value="DSA">Data Structures & Algorithms</option>
+                                    <option value="HR">HR / Behavioral Round</option>
+                                </select>
+                            </div>
+                            <button id="btn-start-interview" class="btn btn-primary">Start Interactive Session <i class="fa-solid fa-right-long"></i></button>
+                        </div>
+                        
+                        <!-- Chat panel (Hidden initially) -->
+                        <div class="card-container flex-col" id="interview-chat-panel" style="display: none;">
+                            <div class="chat-header">
+                                <h3>Interviewer AI Session: <span id="chat-topic-display">OOPS</span></h3>
+                                <button id="btn-end-interview-early" class="btn btn-sm btn-secondary">End Early</button>
+                            </div>
+                            
+                            <div class="chat-messages-container" id="interview-messages">
+                                <!-- Chat bubbles populated dynamically -->
+                            </div>
+                            
+                            <div class="chat-input-area">
+                                <textarea id="interview-user-response" rows="3" placeholder="Type your answer in detail here..."></textarea>
+                                <button id="btn-submit-interview-answer" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Submit Answer</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Feedback Panel (Hidden initially) -->
+                        <div class="card-container" id="interview-feedback-panel" style="display: none;">
+                            <h2>AI Interview Performance Feedback</h2>
+                            <div class="feedback-metrics">
+                                <div class="metric-card bg-indigo">
+                                    <span class="label">Technical Accuracy</span>
+                                    <span class="value" id="val-feedback-tech">0%</span>
+                                </div>
+                                <div class="metric-card bg-purple">
+                                    <span class="label">Communication Quality</span>
+                                    <span class="value" id="val-feedback-comm">0%</span>
+                                </div>
+                                <div class="metric-card bg-emerald">
+                                    <span class="label">Confidence Level</span>
+                                    <span class="value" id="val-feedback-conf">High</span>
+                                </div>
+                            </div>
+                            <div class="suggestions-box">
+                                <h4>Constructive Suggestions:</h4>
+                                <p id="val-feedback-suggestions">Feedback...</p>
+                            </div>
+                            <button id="btn-interview-restart" class="btn btn-primary">Start New Interview</button>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 12. STUDY RESOURCES VIEW -->
+                <section id="view-resources" class="view-panel">
+                    <div class="card-container">
+                        <h2>Curated Study Resources</h2>
+                        <p>Access hand-picked video lectures, books, notes worksheets, and practice portals to guide your prep.</p>
+                        
+                        <div class="resources-wrapper" id="resources-cards-container">
+                            <!-- Generated dynamically -->
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 13. AI CHAT ASSISTANT VIEW -->
+                <section id="view-chat" class="view-panel">
+                    <div class="card-container chat-layout-panel">
+                        <div class="chat-header">
+                            <h2>AI Doubt Solver Chat</h2>
+                            <p>Ask technical questions, SQL structures, stack implementations, or general placement doubts.</p>
+                        </div>
+                        <div class="chat-messages-container" id="chat-assistant-messages">
+                            <div class="chat-bubble ai-bubble">
+                                <p>Hello! I am your AI placement study assistant. Ask me anything, for example: 
+                                <strong>"Explain Stack"</strong>, <strong>"Teach DBMS"</strong>, or <strong>"Explain SQL joins"</strong>!</p>
+                            </div>
+                        </div>
+                        <div class="chat-input-area">
+                            <input type="text" id="chat-assistant-input" placeholder="Ask a technical doubt or explain a concept...">
+                            <button id="btn-send-chat-assistant" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Ask</button>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 14. AI RESUME ANALYZER VIEW -->
+                <section id="view-resume" class="view-panel">
+                    <div class="card-container">
+                        <h2>AI Resume Analyzer (ATS Scan)</h2>
+                        <p>Upload details or paste the text content of your resume to parse ATS scores, missing keywords, and readability warnings.</p>
+                        
+                        <div class="resume-split">
+                            <div class="resume-input-box">
+                                <div class="form-group">
+                                    <label for="resume-text-input">Paste Resume Text</label>
+                                    <textarea id="resume-text-input" rows="12" placeholder="Paste your resume markdown, education list, project descriptions, and technical skills here..."></textarea>
+                                </div>
+                                <button id="btn-analyze-resume" class="btn btn-primary w-full"><i class="fa-solid fa-magnifying-glass"></i> Analyze Resume</button>
+                            </div>
+                            
+                            <div class="resume-results-box" id="resume-results-panel" style="display: none;">
+                                <h3>Analysis Results</h3>
+                                <div class="ats-score-gauge">
+                                    <span class="label">ATS Score Match:</span>
+                                    <strong id="ats-score-val">0%</strong>
+                                </div>
+                                
+                                <div class="result-section">
+                                    <h4><i class="fa-solid fa-triangle-exclamation text-danger"></i> Missing Keywords/Skills</h4>
+                                    <p id="ats-missing-skills">Loading...</p>
+                                </div>
+                                <div class="result-section">
+                                    <h4><i class="fa-solid fa-spell-check text-warning"></i> Grammar & Tone Suggestions</h4>
+                                    <p id="ats-grammar">Loading...</p>
+                                </div>
+                                <div class="result-section">
+                                    <h4><i class="fa-solid fa-star text-info"></i> Performance Improvement Tips</h4>
+                                    <p id="ats-tips">Loading...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 15. COMPANY ELIGIBILITY CHECKER VIEW -->
+                <section id="view-eligibility" class="view-panel">
+                    <div class="card-container">
+                        <h2>Company Eligibility Calculator</h2>
+                        <p>Check if your current CGPA, backlog parameters, and skills qualify for campus placements across corporations.</p>
+                        
+                        <button id="btn-check-eligibility" class="btn btn-primary" style="margin-bottom: 20px;"><i class="fa-solid fa-rotate"></i> Refresh Eligibility against Profile</button>
+                        
+                        <div class="eligibility-split">
+                            <!-- Eligible list -->
+                            <div class="elig-box border-success">
+                                <h3 class="text-success"><i class="fa-solid fa-circle-check"></i> Eligible Corporations</h3>
+                                <div class="elig-list" id="elig-companies-container">
+                                    <!-- Loaded dynamically -->
+                                </div>
+                            </div>
+                            
+                            <!-- Ineligible list -->
+                            <div class="elig-box border-danger">
+                                <h3 class="text-danger"><i class="fa-solid fa-circle-xmark"></i> Not Eligible / Missing Criteria</h3>
+                                <div class="elig-list" id="inelig-companies-container">
+                                    <!-- Loaded dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 16. NOTES & REVISION PLANNER VIEW -->
+                <section id="view-notes" class="view-panel">
+                    <div class="notes-layout">
+                        <!-- Left Panel: Create Notes form -->
+                        <div class="card-container">
+                            <h3>Add Personal Revision Note</h3>
+                            <form id="form-note">
+                                <div class="form-group">
+                                    <label for="note-title">Note Title</label>
+                                    <input type="text" id="note-title" required placeholder="e.g. B-Tree index structure">
+                                </div>
+                                <div class="form-group">
+                                    <label for="note-category">Category</label>
+                                    <select id="note-category" required>
+                                        <option value="Coding">Coding / DSA</option>
+                                        <option value="DBMS">DBMS / SQL</option>
+                                        <option value="Aptitude">Aptitude</option>
+                                        <option value="Core CS">OS / Networking</option>
+                                        <option value="HR">HR Experiences</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="note-revision">Set Revision Cycle</label>
+                                    <select id="note-revision" required>
+                                        <option value="1-Day">1-Day Interval</option>
+                                        <option value="1-Week">1-Week Interval</option>
+                                        <option value="1-Month">1-Month Interval</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="note-content">Note Contents</label>
+                                    <textarea id="note-content" rows="6" placeholder="Write down definitions, formula sheets, or questions..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-full"><i class="fa-solid fa-floppy-disk"></i> Save Note</button>
+                            </form>
+                        </div>
+                        
+                        <!-- Right Panel: Notes List -->
+                        <div class="card-container">
+                            <h3>Saved Revision Notes</h3>
+                            <div class="saved-notes-grid" id="notes-list-container">
+                                <!-- Loaded dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 17. PROGRESS & ACHIEVEMENTS VIEW -->
+                <section id="view-progress" class="view-panel">
+                    <div class="achievements-layout">
+                        <!-- Progress Charts -->
+                        <div class="card-container">
+                            <h2>Placement Prep Milestones</h2>
+                            <p>Verify completed assessment logs and unlocked progress credentials below.</p>
+                            
+                            <div class="achievement-badges-grid" id="badges-container">
+                                <!-- Badges loaded dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+            </div>
+        </main>
+    </div>
+    
+    <!-- Core Application Javascript Files -->
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
